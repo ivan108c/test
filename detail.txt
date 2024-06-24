@@ -1,0 +1,35 @@
+The chart only shows price history of BTC-USDT starting from 2019 along with its Moving Average which is currently windowed to 200 day.
+SMA = Simple Moving Average
+
+Moving average is a way to make sense of data that changes over time. It's like looking at the average of a certain number of recent data to get a much clearer picture of the trend instead of getting distracted by small ups and downs. 
+Moving average is basically a mean. For example: 
+Day 1 Price = 100
+Day 2 Price = 120
+Day 3 Price = 130
+Day 4 Price = 125
+Day 5 Price = 120
+Moving Average = 100 + 120 + 130 + 125 + 120/5
+Window Size in this example = 5
+
+//
+df = yf.download('BTC-USD', start='2019-01-01')
+    closing_price = df['Adj Close']
+//
+
+First I extracted the data of BTC-USD from yahoo finance website. And filtered out only the desired column I need. In this case "Adjusted Close".
+Then I defined the window-size which is definately changable.
+
+//
+sma_values = np.zeros_like(closing_price)
+//
+
+"sma_values" is an array. This moving average stores the SMA values
+
+//
+for i in range(window_size, len(closing_price)):
+        sma_values[i] = np.mean(closing_price[i - window_size:i])
+//
+
+This loop calculates the mean i.e Moving Average. 
+
+Finally, data is plotted in chart using matplotlib library.
